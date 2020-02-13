@@ -107,7 +107,7 @@ class App extends Component {
     this.setState({modalBluetoothVisible: visible});
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     Promise.all([BluetoothSerial.isEnabled(), BluetoothSerial.list()]).then(
       values => {
         const [isEnabled, devices] = values;
@@ -148,8 +148,11 @@ class App extends Component {
    */
   enable() {
     BluetoothSerial.enable()
-      .then(res => this.setState({isEnabled: true}))
+      .then(() => {
+        this.setState({isEnabled: true});
+      })
       .catch(err => Toast.show(err.message));
+    this.UNSAFE_componentWillMount();
   }
 
   /**
@@ -160,6 +163,7 @@ class App extends Component {
     BluetoothSerial.disable()
       .then(res => this.setState({isEnabled: false}))
       .catch(err => Toast.show(err.message));
+    this.UNSAFE_componentWillMount();
   }
 
   /**
@@ -331,7 +335,7 @@ class App extends Component {
                   source={require('./Icons/close.png')}
                 />
               </TouchableOpacity>
-              <View style={{flex: 1}}>
+              <View style={{flex: 1, marginTop: 10}}>
                 <View style={styles.topBar}>
                   <Text style={styles.heading}>Connexion Bluetooth</Text>
                   {Platform.OS === 'android' ? (
