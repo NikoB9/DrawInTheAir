@@ -47,6 +47,7 @@ class ModalTextBody extends Component {
     )
       .then(res => {
         Toast.show("L'envoie s'est déroulé avec succès");
+        console.log(res);
       })
       .catch(err => Toast.show(err.message));
   };
