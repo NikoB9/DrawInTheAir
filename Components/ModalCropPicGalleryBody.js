@@ -8,12 +8,15 @@ import {
 } from 'react-native';
 import React, {Component} from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
+import BluetoothSerial from 'react-native-bluetooth-serial';
+import Toast from 'react-native-simple-toast';
 
 class ModalCropPicGalleryBody extends Component {
   constructor(props) {
     super(props);
     this.state = {
       profil: require('../Icons/images-solid-79x70.png'),
+      path: '',
     };
     // this.setState est appelé dans un callback dans showImagePicker, pensez donc bien à binder la fonction _profilClicked
     this._profilClicked = this._profilClicked.bind(this);
@@ -37,6 +40,7 @@ class ModalCropPicGalleryBody extends Component {
         let requireSource = {uri: image.path};
         this.setState({
           profil: requireSource,
+          path: image.path,
         });
       })
       .catch(e => {
@@ -44,6 +48,10 @@ class ModalCropPicGalleryBody extends Component {
         Alert.alert(e.message ? e.message : e);
       });
   }
+
+  submit = image => {
+    console.log(image);
+  };
 
   render() {
     return (
@@ -61,7 +69,7 @@ class ModalCropPicGalleryBody extends Component {
             <Button
               title="Envoyer"
               onPress={() => {
-                console.log('send');
+                this.submit(this.state.path);
               }}
             />
           </View>

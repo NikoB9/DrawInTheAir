@@ -140,6 +140,7 @@ class App extends Component {
     BluetoothSerial.requestEnable()
       .then(res => this.setState({isEnabled: true}))
       .catch(err => Toast.show(err.message));
+    this.UNSAFE_componentWillMount();
   }
 
   /**

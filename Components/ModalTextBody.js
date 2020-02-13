@@ -73,7 +73,7 @@ class ModalTextBody extends Component {
             <TriangleColorPicker
               oldColor="white"
               onColorChange={this.handleTextColor}
-              onColorSelected={color => alert(`Color selected: ${color}`)}
+              onColorSelected={color => console.log(`Color selected: ${color}`)}
               style={{flex: 1}}
             />
             <Text />
@@ -82,7 +82,7 @@ class ModalTextBody extends Component {
             <TriangleColorPicker
               oldColor="black"
               onColorChange={this.handleBackgroundColor}
-              onColorSelected={color => alert(`Color selected: ${color}`)}
+              onColorSelected={color => console.log(`Color selected: ${color}`)}
               style={{flex: 1}}
             />
           </View>
