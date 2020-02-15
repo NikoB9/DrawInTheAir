@@ -41,6 +41,8 @@ target 'DrawInTheAir' do
 
   pod 'react-native-simple-toast', :path => '../node_modules/react-native-simple-toast'
 
+  pod 'RNSketchCanvas', :path => '../node_modules/@terrylinla/react-native-sketch-canvas'
+
   target 'DrawInTheAirTests' do
     inherit! :search_paths
     # Pods for testing

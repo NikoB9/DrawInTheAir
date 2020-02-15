@@ -179,6 +179,7 @@ android {
 }
 
 dependencies {
+    implementation project(':@terrylinla_react-native-sketch-canvas')
     implementation project(':react-native-bluetooth-serial')
     implementation project(':react-native-image-crop-picker')
     implementation project(':react-native-image-picker')

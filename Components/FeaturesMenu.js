@@ -83,29 +83,17 @@ export default class FeaturesMenu extends Component {
           <View
             style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <View style={styles.ModalInsideView}>
-              <View style={styles.ModalBody}>
-                <Text>POPUP POUR LE DESSIN EN COURS DE CREATION</Text>
-              </View>
+              <TouchableOpacity
+                style={styles.touchableCloseIcon}
+                onPress={() => {
+                  this.setModalDrawVisible(!this.state.modalVisibleDraw);
+                }}>
+                <Image
+                  style={styles.closeIcon}
+                  source={require('../Icons/close.png')}
+                />
+              </TouchableOpacity>
               <ModalDraw />
-
-              <View style={styles.ModalFooter}>
-                <View style={styles.buttonContainer}>
-                  <Button
-                    title="Envoyer"
-                    onPress={() => {
-                      this.setModalDrawVisible(!this.state.modalVisibleDraw);
-                    }}
-                  />
-                  <View style={styles.spaceDivider} />
-                  <Button
-                    title="Annuler"
-                    color="red"
-                    onPress={() => {
-                      this.setModalDrawVisible(!this.state.modalVisibleDraw);
-                    }}
-                  />
-                </View>
-              </View>
             </View>
           </View>
         </Modal>
