@@ -12,8 +12,13 @@ import {
 //import all the components we will need
 import ModalTextBody from './ModalTextBody';
 import ModalCropPicGalleryBody from './ModalCropPicGalleryBody';
+import ModalDraw from './ModalDraw';
 
 export default class FeaturesMenu extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   state = {
     modalVisibleText: false,
     modalVisibleDraw: false,
@@ -23,6 +28,7 @@ export default class FeaturesMenu extends Component {
 
   setModalTextVisible(visible) {
     this.setState({modalVisibleText: visible});
+    console.log(this.props);
   }
 
   setModalDrawVisible(visible) {
@@ -61,7 +67,7 @@ export default class FeaturesMenu extends Component {
                   source={require('../Icons/close.png')}
                 />
               </TouchableOpacity>
-              <ModalTextBody />
+              <ModalTextBody connectedDevice={this.props.connectedDevice} />
             </View>
           </View>
         </Modal>
@@ -80,6 +86,7 @@ export default class FeaturesMenu extends Component {
               <View style={styles.ModalBody}>
                 <Text>POPUP POUR LE DESSIN EN COURS DE CREATION</Text>
               </View>
+              <ModalDraw />
 
               <View style={styles.ModalFooter}>
                 <View style={styles.buttonContainer}>

@@ -100,6 +100,7 @@ class App extends Component {
       connected: false,
       section: 0,
       modalBluetoothVisible: false,
+      device: '',
     };
   }
 
@@ -342,7 +343,7 @@ class App extends Component {
                   {Platform.OS === 'android' ? (
                     <View style={styles.enableInfoWrapper}>
                       <Text style={{fontSize: 12, color: '#FFFFFF'}}>
-                        {this.state.isEnabled ? 'désactiver' : 'activer'}
+                        {this.state.isEnabled ? 'on' : 'off'}
                       </Text>
                       <Switch
                         onValueChange={this.toggleBluetooth.bind(this)}
@@ -471,7 +472,7 @@ class App extends Component {
                 </Text>
               </View>
               <View style={styles.sectionContainer}>
-                <FeaturesMenu />
+                <FeaturesMenu connectedDevice={this.state.device} />
               </View>
             </View>
           </ScrollView>
