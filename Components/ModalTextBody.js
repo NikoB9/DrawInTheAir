@@ -3,6 +3,7 @@ import {TriangleColorPicker, fromHsv} from 'react-native-color-picker';
 import React, {Component} from 'react';
 import BluetoothSerial from 'react-native-bluetooth-serial';
 import Toast from 'react-native-simple-toast';
+import Canvas from 'react-native-canvas';
 
 class ModalTextBody extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class ModalTextBody extends Component {
   state = {
     message: '',
     textColor: '#ffffff',
-    backgroundColor: '#000000',
+    backgroundColor: '#000000'
   };
 
   handleTextMessage = text => {
@@ -27,6 +28,30 @@ class ModalTextBody extends Component {
     this.setState({backgroundColor: fromHsv(color)});
   };
 
+  componentDidMount() {
+    this.canvas.width  = 50;
+    this.canvas.height = 35;
+  };
+
+  getImageFromCanvas(){
+    console.log("getImageFromCanvas()");
+    var context = this.canvas.getContext('2d');
+    //Filling the canvas
+    context.fillStyle = this.state.backgroundColor;
+    context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    //Putting the text inside the canvas
+    context.fillStyle = this.state.textColor;
+    context.fillText(this.state.message, 30, 30);
+    console.log(this.canvas);
+    var Image = context.getImageData(0, 0, this.canvas.width, this.canvas.height);
+    console.log("data : ",this.Image);
+    console.log("url : ", this.canvas.toDataURL("image/png"));
+    const image = new Image(this.canvas, this.canvas.height, this.canvas.width);
+    console.log("image : ", this.image);
+    console.log("____getImageDromCanvas()_____");
+  }
+
+
   submit = (message, textColor, backgroundColor) => {
     alert(
       'message : ' +
@@ -36,6 +61,11 @@ class ModalTextBody extends Component {
         ' ; couleur de fond : ' +
         backgroundColor,
     );
+
+    console.log("submit");
+    console.log(this.getImageFromCanvas());
+    
+
 
     BluetoothSerial.write(
       'message : ' +
@@ -89,6 +119,11 @@ class ModalTextBody extends Component {
           </View>
         </View>
 
+        <View style={{display: 'none'}}>
+          <Canvas ref={(canvas: any) => (this.canvas = canvas)}/>
+        </View>
+        
+
         <View style={styles.ModalFooter}>
           <View style={styles.buttonContainer}>
             <Button
@@ -97,7 +132,7 @@ class ModalTextBody extends Component {
                 this.submit(
                   this.state.message,
                   this.state.textColor,
-                  this.state.backgroundColor,
+                  this.state.backgroundColor
                 );
               }}
             />

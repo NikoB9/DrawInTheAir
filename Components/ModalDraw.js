@@ -10,6 +10,7 @@ class ModalDraw extends Component {
 
   submit = message => {
     alert(message);
+    console.log(message);
   };
 
   render() {
@@ -97,6 +98,7 @@ class ModalDraw extends Component {
               title="Envoyer"
               onPress={() => {
                 this.submit("envoie en cours d'implémentation");
+                console.log(this);
               }}
             />
           </View>

@@ -18,3 +18,6 @@ https://www.skptricks.com/2019/06/react-native-generate-release-apk-file.html
  cd android 
 # 
 gradlew clean
+
+#debug sur le device connecté avec log sur console : 
+npx react-native log-android

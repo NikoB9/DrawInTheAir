@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.terrylinla.rnsketchcanvas.SketchCanvasPackage;
 import com.rusel.RCTBluetoothSerial.RCTBluetoothSerialPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
