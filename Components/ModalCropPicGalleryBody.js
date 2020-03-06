@@ -1,3 +1,8 @@
+/*
+ * Ressource utile
+ * https://stackoverflow.com/questions/38098217/how-to-access-image-pixel-data-in-react-native
+ * */
+
 import {
   Button,
   View,
@@ -5,6 +10,7 @@ import {
   Image,
   TouchableOpacity,
   Alert,
+  NativeModules,
 } from 'react-native';
 import React, {Component} from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -24,13 +30,13 @@ class ModalCropPicGalleryBody extends Component {
 
   _profilClicked() {
     ImagePicker.openPicker({
-      width: 150,
-      height: 120,
+      width: 50,
+      height: 35,
       cropping: true,
       cropperCircleOverlay: false,
       sortOrder: 'none',
-      compressImageMaxWidth: 1000,
-      compressImageMaxHeight: 1000,
+      compressImageMaxWidth: 50,
+      compressImageMaxHeight: 35,
       compressImageQuality: 1,
       compressVideoPreset: 'MediumQuality',
       includeExif: true,
@@ -50,7 +56,46 @@ class ModalCropPicGalleryBody extends Component {
   }
 
   submit = image => {
-    console.log(image);
+    if (image != '') {
+      image = image.substring(8);
+      console.log(image);
+      NativeModules.Bitmap.getPixels(image)
+        .then(image => {
+          console.log('Width : ' + image.width);
+          console.log('Height : ' + image.height);
+
+          var pixtosend = [];
+
+          for (let x = 0; x < image.width; x++) {
+            for (let y = 0; y < image.height; y++) {
+              const offset = image.width * y + x;
+              const pixel = image.pixels[offset];
+              const r = pixel.substring(2, 4);
+              const g = pixel.substring(4, 6);
+              const b = pixel.substring(6);
+              pixtosend.push(parseInt(g, 16));
+              pixtosend.push(parseInt(b, 16));
+              pixtosend.push(parseInt(r, 16));
+            }
+          }
+
+          alert(pixtosend);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+      if (this.props.connectedDevice != '') {
+        BluetoothSerial.write('x image : ' + image + '$')
+          .then(res => {
+            Toast.show("L'envoie s'est déroulé avec succès");
+            console.log(res);
+          })
+          .catch(err => Toast.show(err.message));
+      } else {
+        Toast.show("L'envoie a échoué. Veuillez vous connecter à un appareil");
+      }
+      console.log(image);
+    }
   };
 
   render() {
@@ -103,16 +148,15 @@ const styles = StyleSheet.create({
   },
   touchableOpacity: {
     margin: 5,
-    width: 100, // Pensez bien à définir une largeur ici, sinon toute la largeur de l'écran sera cliquable
-    height: 100,
+    width: 250, // Pensez bien à définir une largeur ici, sinon toute la largeur de l'écran sera cliquable
+    height: 175,
     justifyContent: 'center',
     alignItems: 'center',
   },
   avatar: {
-    width: 150,
-    height: 120,
+    width: 250,
+    height: 175,
     borderColor: '#9B9B9B',
-    borderWidth: 2,
   },
 });
 

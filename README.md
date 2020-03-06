@@ -14,7 +14,14 @@ https://www.skptricks.com/2019/06/react-native-generate-release-apk-file.html
  cd DrawInTheAir 
 # 
  java -jar "E:\Temp\bundletool-all-0.6.0.jar" build-apks --bundle="E:\Projects\Android\Temp\app\build\outputs\bundle\debug\app.aab" --output=out_bundle_archive_set.apks
-#Modif des librairies :
+#installation de librairie :
+npm install --save react-native-librairie
+#
+react-native link react-native-librairie
+#Modif des librairies ou erreur installation :
  cd android 
 # 
 gradlew clean
+
+#Icones application
+https://stackoverflow.com/questions/34329715/how-to-add-icons-to-react-native-app

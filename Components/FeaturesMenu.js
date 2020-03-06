@@ -13,6 +13,7 @@ import {
 import ModalTextBody from './ModalTextBody';
 import ModalCropPicGalleryBody from './ModalCropPicGalleryBody';
 import ModalDraw from './ModalDraw';
+import ModalLibrary from './ModalLibrary';
 
 export default class FeaturesMenu extends Component {
   constructor(props) {
@@ -28,7 +29,6 @@ export default class FeaturesMenu extends Component {
 
   setModalTextVisible(visible) {
     this.setState({modalVisibleText: visible});
-    console.log(this.props);
   }
 
   setModalDrawVisible(visible) {
@@ -93,7 +93,7 @@ export default class FeaturesMenu extends Component {
                   source={require('../Icons/close.png')}
                 />
               </TouchableOpacity>
-              <ModalDraw />
+              <ModalDraw connectedDevice={this.props.connectedDevice} />
             </View>
           </View>
         </Modal>
@@ -109,32 +109,17 @@ export default class FeaturesMenu extends Component {
           <View
             style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <View style={styles.ModalInsideView}>
-              <View style={styles.ModalBody}>
-                <Text>POPUP POUR LA BIBLIOTHEQUE EN COURS DE CREATION</Text>
-              </View>
-
-              <View style={styles.ModalFooter}>
-                <View style={styles.buttonContainer}>
-                  <Button
-                    title="Envoyer"
-                    onPress={() => {
-                      this.setModalLibraryVisible(
-                        !this.state.modalVisibleLibrary,
-                      );
-                    }}
-                  />
-                  <View style={styles.spaceDivider} />
-                  <Button
-                    title="Annuler"
-                    color="red"
-                    onPress={() => {
-                      this.setModalLibraryVisible(
-                        !this.state.modalVisibleLibrary,
-                      );
-                    }}
-                  />
-                </View>
-              </View>
+              <TouchableOpacity
+                style={styles.touchableCloseIcon}
+                onPress={() => {
+                  this.setModalLibraryVisible(!this.state.modalVisibleLibrary);
+                }}>
+                <Image
+                  style={styles.closeIcon}
+                  source={require('../Icons/close.png')}
+                />
+              </TouchableOpacity>
+              <ModalLibrary connectedDevice={this.props.connectedDevice} />
             </View>
           </View>
         </Modal>
@@ -160,7 +145,9 @@ export default class FeaturesMenu extends Component {
                   source={require('../Icons/close.png')}
                 />
               </TouchableOpacity>
-              <ModalCropPicGalleryBody />
+              <ModalCropPicGalleryBody
+                connectedDevice={this.props.connectedDevice}
+              />
             </View>
           </View>
         </Modal>

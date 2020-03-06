@@ -28,28 +28,33 @@ class ModalTextBody extends Component {
   };
 
   submit = (message, textColor, backgroundColor) => {
-    alert(
+    /*alert(
       'message : ' +
         message +
         ' ; couleur du texte : ' +
         textColor +
         ' ; couleur de fond : ' +
         backgroundColor,
-    );
+    );*/
 
-    BluetoothSerial.write(
-      'message : ' +
-        message +
-        ' ; couleur du texte : ' +
-        textColor +
-        ' ; couleur de fond : ' +
-        backgroundColor,
-    )
-      .then(res => {
-        Toast.show("L'envoie s'est déroulé avec succès");
-        console.log(res);
-      })
-      .catch(err => Toast.show(err.message));
+    if (this.props.connectedDevice != '') {
+      BluetoothSerial.write(
+        'x message : ' +
+          message +
+          ' ; couleur du texte : ' +
+          textColor +
+          ' ; couleur de fond : ' +
+          backgroundColor +
+          '$',
+      )
+        .then(res => {
+          Toast.show("L'envoie s'est déroulé avec succès");
+          console.log(res);
+        })
+        .catch(err => Toast.show(err.message));
+    } else {
+      Toast.show("L'envoie a échoué. Veuillez vous connecter à un appareil");
+    }
   };
 
   render() {

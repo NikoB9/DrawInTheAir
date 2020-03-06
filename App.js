@@ -108,7 +108,7 @@ class App extends Component {
     this.setState({modalBluetoothVisible: visible});
   }
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     Promise.all([BluetoothSerial.isEnabled(), BluetoothSerial.list()]).then(
       values => {
         const [isEnabled, devices] = values;
@@ -141,7 +141,6 @@ class App extends Component {
     BluetoothSerial.requestEnable()
       .then(res => this.setState({isEnabled: true}))
       .catch(err => Toast.show(err.message));
-    this.UNSAFE_componentWillMount();
   }
 
   /**
@@ -154,7 +153,6 @@ class App extends Component {
         this.setState({isEnabled: true});
       })
       .catch(err => Toast.show(err.message));
-    this.UNSAFE_componentWillMount();
   }
 
   /**
@@ -165,7 +163,6 @@ class App extends Component {
     BluetoothSerial.disable()
       .then(res => this.setState({isEnabled: false}))
       .catch(err => Toast.show(err.message));
-    this.UNSAFE_componentWillMount();
   }
 
   /**
@@ -462,17 +459,19 @@ class App extends Component {
               </View>
               <View style={styles.sectionContainer}>
                 <Text style={styles.sectionTitle}>
-                  Hey! Nous sommes l'équipe de Draw In The Air
+                  Bienvenue sur{' '}
+                  <Text style={styles.highlight}>Draw In The Air</Text>
                 </Text>
                 <Text style={styles.sectionDescription}>
-                  Bienvenue sur{' '}
-                  <Text style={styles.highlight}>Draw In The Air</Text>,
                   L'application dédiéé à notre support de persistance rétinienne
                   au top.
                 </Text>
               </View>
               <View style={styles.sectionContainer}>
                 <FeaturesMenu connectedDevice={this.state.device} />
+              </View>
+              <View style={styles.sectionContainer}>
+                <Image style={{'maxWidth':'100%'}} source={require('./Icons/grouppic.png')} />
               </View>
             </View>
           </ScrollView>
