@@ -66,8 +66,8 @@ class ModalCropPicGalleryBody extends Component {
 
           var pixtosend = [];
 
-          for (let x = 0; x < image.width; x++) {
-            for (let y = 0; y < image.height; y++) {
+          for (let y = 0; y < image.height; y++) {
+            for (let x = 0; x < image.width; x++) {
               const offset = image.width * y + x;
               const pixel = image.pixels[offset];
               const r = pixel.substring(2, 4);

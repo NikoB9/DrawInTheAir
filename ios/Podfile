@@ -45,6 +45,7 @@ target 'DrawInTheAir' do
 
   pod 'react-native-image-resizer', :path => '../node_modules/react-native-image-resizer'
 
+
   target 'DrawInTheAirTests' do
     inherit! :search_paths
     # Pods for testing

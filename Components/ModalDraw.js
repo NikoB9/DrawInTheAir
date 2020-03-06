@@ -1,15 +1,101 @@
 import React, {Component} from 'react';
-import {AppRegistry, Button, StyleSheet, Text, View, Alert} from 'react-native';
+import {
+  AppRegistry,
+  Button,
+  StyleSheet,
+  Text,
+  View,
+  Alert,
+  NativeModules,
+} from 'react-native';
 
 import RNSketchCanvas from '@terrylinla/react-native-sketch-canvas';
+import Toast from 'react-native-simple-toast';
+import ImagePicker from 'react-native-image-crop-picker';
+import BluetoothSerial from 'react-native-bluetooth-serial';
 
 class ModalDraw extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      profil: '',
+      path: '',
+      pictureChoosen: false,
+    };
   }
 
-  submit = message => {
-    alert(message);
+  profilClicked = p => {
+    console.log(p.substring(1));
+    console.log(p);
+    ImagePicker.openPicker({
+      path: 'storage/emulated/0/Pictures/DrawInTheAir/',
+      width: 50,
+      height: 35,
+      cropping: true,
+      cropperCircleOverlay: false,
+      sortOrder: 'none',
+      compressImageMaxWidth: 50,
+      compressImageMaxHeight: 35,
+      compressImageQuality: 1,
+      compressVideoPreset: 'MediumQuality',
+      includeExif: true,
+    })
+      .then(image => {
+        console.log('received image', image);
+        let requireSource = {uri: image.path};
+        this.setState({
+          profil: requireSource,
+          path: image.path,
+          pictureChoosen: true,
+        });
+      })
+      .catch(e => {
+        console.log(e);
+        Alert.alert(e.message ? e.message : e);
+      });
+  };
+
+  submit = image => {
+    if (image != '') {
+      image = image.substring(8);
+      console.log(image);
+      NativeModules.Bitmap.getPixels(image)
+        .then(image => {
+          console.log('Width : ' + image.width);
+          console.log('Height : ' + image.height);
+
+          var pixtosend = [];
+
+          for (let y = 0; y < image.height; y++) {
+            for (let x = 0; x < image.width; x++) {
+              const offset = image.width * y + x;
+              const pixel = image.pixels[offset];
+              const r = pixel.substring(2, 4);
+              const g = pixel.substring(4, 6);
+              const b = pixel.substring(6);
+              pixtosend.push(parseInt(g, 16));
+              pixtosend.push(parseInt(b, 16));
+              pixtosend.push(parseInt(r, 16));
+            }
+          }
+
+          alert(pixtosend);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+      if (this.props.connectedDevice != '') {
+        BluetoothSerial.write('x image : ' + image + '$')
+          .then(res => {
+            Toast.show("L'envoie s'est déroulé avec succès");
+            console.log(res);
+          })
+          .catch(err => Toast.show(err.message));
+      } else {
+        Toast.show("L'envoie a échoué. Veuillez vous connecter à un appareil");
+      }
+      console.log(image);
+    }
   };
 
   render() {
@@ -21,28 +107,23 @@ class ModalDraw extends Component {
               <RNSketchCanvas
                 containerStyle={{backgroundColor: 'transparent', flex: 1}}
                 canvasStyle={{backgroundColor: 'transparent', flex: 1}}
-                defaultStrokeIndex={0}
-                defaultStrokeWidth={5}
-                closeComponent={
-                  <View style={styles.functionButton}>
-                    <Text style={{color: 'white'}}>Close</Text>
-                  </View>
-                }
+                onStrokeEnd={data => {}}
                 undoComponent={
                   <View style={styles.functionButton}>
-                    <Text style={{color: 'white'}}>Undo</Text>
+                    <Text style={{color: 'white'}}>Retour</Text>
                   </View>
                 }
+                onUndoPressed={id => {
+                  // Alert.alert('do something')
+                }}
                 clearComponent={
                   <View style={styles.functionButton}>
-                    <Text style={{color: 'white'}}>Clear</Text>
+                    <Text style={{color: 'white'}}>Effacer</Text>
                   </View>
                 }
-                eraseComponent={
-                  <View style={styles.functionButton}>
-                    <Text style={{color: 'white'}}>Eraser</Text>
-                  </View>
-                }
+                onClearPressed={() => {
+                  // Alert.alert('do something')
+                }}
                 strokeComponent={color => (
                   <View
                     style={[{backgroundColor: color}, styles.strokeColorButton]}
@@ -73,18 +154,30 @@ class ModalDraw extends Component {
                     </View>
                   );
                 }}
+                defaultStrokeIndex={0}
+                defaultStrokeWidth={5}
                 saveComponent={
                   <View style={styles.functionButton}>
-                    <Text style={{color: 'white'}}>Save</Text>
+                    <Text style={{color: 'white'}}>Enregistrer</Text>
                   </View>
                 }
                 savePreference={() => {
                   return {
-                    folder: 'RNSketchCanvas',
-                    filename: String(Math.ceil(Math.random() * 100000000)),
+                    folder: 'DrawInTheAir',
+                    filename:
+                      'dessinDrawInTheAir' +
+                      String(Math.ceil(Math.random() * 100000000)),
                     transparent: false,
                     imageType: 'png',
                   };
+                }}
+                onSketchSaved={(success, path) => {
+                  Toast.show(success ? 'Image enregistrée!' : 'Erreur!');
+                  //console.log(path);
+                  this.setState({path: path});
+                }}
+                onPathsChange={pathsCount => {
+                  console.log('pathsCount', pathsCount);
                 }}
               />
             </View>
@@ -93,12 +186,21 @@ class ModalDraw extends Component {
 
         <View style={styles.ModalFooter}>
           <View style={styles.buttonContainer}>
-            <Button
-              title="Envoyer"
-              onPress={() => {
-                this.submit("envoie en cours d'implémentation");
-              }}
-            />
+            {!this.state.pictureChoosen ? (
+              <Button
+                title="Recadrer"
+                onPress={() => {
+                  this.profilClicked(this.state.path);
+                }}
+              />
+            ) : (
+              <Button
+                title="Envoyer"
+                onPress={() => {
+                  this.submit(this.state.path);
+                }}
+              />
+            )}
           </View>
         </View>
       </View>
@@ -134,7 +236,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 2.5,
     marginVertical: 8,
     height: 30,
-    width: 60,
+    width: 90,
     backgroundColor: '#39579A',
     justifyContent: 'center',
     alignItems: 'center',

@@ -463,8 +463,7 @@ class App extends Component {
                   <Text style={styles.highlight}>Draw In The Air</Text>
                 </Text>
                 <Text style={styles.sectionDescription}>
-                  L'application dédiéé à notre support de persistance rétinienne
-                  au top.
+                  L'application dédiéé à notre support de persistance rétinienne.
                 </Text>
               </View>
               <View style={styles.sectionContainer}>
