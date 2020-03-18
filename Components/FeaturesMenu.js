@@ -45,186 +45,186 @@ export default class FeaturesMenu extends Component {
 
   render() {
     return (
-      <View>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={this.state.modalVisibleText}
-          position={'center'}
-          onRequestClose={() => {
-            this.setModalTextVisible(!this.state.modalVisibleText);
-          }}>
-          <View
-            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <View style={styles.ModalInsideView}>
-              <TouchableOpacity
-                style={styles.touchableCloseIcon}
-                onPress={() => {
-                  this.setModalTextVisible(!this.state.modalVisibleText);
-                }}>
-                <Image
-                  style={styles.closeIcon}
-                  source={require('../Icons/close.png')}
-                />
-              </TouchableOpacity>
-              <ModalTextBody connectedDevice={this.props.connectedDevice} />
+        <View>
+          <Modal
+              animationType="slide"
+              transparent={true}
+              visible={this.state.modalVisibleText}
+              position={'center'}
+              onRequestClose={() => {
+                this.setModalTextVisible(!this.state.modalVisibleText);
+              }}>
+            <View
+                style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.ModalInsideView}>
+                <TouchableOpacity
+                    style={styles.touchableCloseIcon}
+                    onPress={() => {
+                      this.setModalTextVisible(!this.state.modalVisibleText);
+                    }}>
+                  <Image
+                      style={styles.closeIcon}
+                      source={require('../Icons/close.png')}
+                  />
+                </TouchableOpacity>
+                <ModalTextBody connectedDevice={this.props.connectedDevice} />
+              </View>
             </View>
-          </View>
-        </Modal>
+          </Modal>
 
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={this.state.modalVisibleDraw}
-          position={'center'}
-          onRequestClose={() => {
-            this.setModalDrawVisible(!this.state.modalVisibleDraw);
-          }}>
-          <View
-            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <View style={styles.ModalInsideView}>
-              <TouchableOpacity
-                style={styles.touchableCloseIcon}
-                onPress={() => {
-                  this.setModalDrawVisible(!this.state.modalVisibleDraw);
-                }}>
-                <Image
-                  style={styles.closeIcon}
-                  source={require('../Icons/close.png')}
-                />
-              </TouchableOpacity>
-              <ModalDraw connectedDevice={this.props.connectedDevice} />
+          <Modal
+              animationType="slide"
+              transparent={true}
+              visible={this.state.modalVisibleDraw}
+              position={'center'}
+              onRequestClose={() => {
+                this.setModalDrawVisible(!this.state.modalVisibleDraw);
+              }}>
+            <View
+                style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.ModalInsideView}>
+                <TouchableOpacity
+                    style={styles.touchableCloseIcon}
+                    onPress={() => {
+                      this.setModalDrawVisible(!this.state.modalVisibleDraw);
+                    }}>
+                  <Image
+                      style={styles.closeIcon}
+                      source={require('../Icons/close.png')}
+                  />
+                </TouchableOpacity>
+                <ModalDraw connectedDevice={this.props.connectedDevice} />
+              </View>
             </View>
-          </View>
-        </Modal>
+          </Modal>
 
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={this.state.modalVisibleLibrary}
-          position={'center'}
-          onRequestClose={() => {
-            this.setModalLibraryVisible(!this.state.modalVisibleLibrary);
-          }}>
-          <View
-            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <View style={styles.ModalInsideView}>
-              <TouchableOpacity
-                style={styles.touchableCloseIcon}
-                onPress={() => {
-                  this.setModalLibraryVisible(!this.state.modalVisibleLibrary);
-                }}>
-                <Image
-                  style={styles.closeIcon}
-                  source={require('../Icons/close.png')}
-                />
-              </TouchableOpacity>
-              <ModalLibrary connectedDevice={this.props.connectedDevice} />
+          <Modal
+              animationType="slide"
+              transparent={true}
+              visible={this.state.modalVisibleLibrary}
+              position={'center'}
+              onRequestClose={() => {
+                this.setModalLibraryVisible(!this.state.modalVisibleLibrary);
+              }}>
+            <View
+                style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.ModalInsideView}>
+                <TouchableOpacity
+                    style={styles.touchableCloseIcon}
+                    onPress={() => {
+                      this.setModalLibraryVisible(!this.state.modalVisibleLibrary);
+                    }}>
+                  <Image
+                      style={styles.closeIcon}
+                      source={require('../Icons/close.png')}
+                  />
+                </TouchableOpacity>
+                <ModalLibrary connectedDevice={this.props.connectedDevice} />
+              </View>
             </View>
-          </View>
-        </Modal>
+          </Modal>
 
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={this.state.modalVisibleGalery}
-          position={'center'}
-          onRequestClose={() => {
-            this.setModalGaleryVisible(!this.state.modalVisibleGalery);
-          }}>
-          <View
-            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <View style={styles.ModalInsideView}>
-              <TouchableOpacity
-                style={styles.touchableCloseIcon}
-                onPress={() => {
-                  this.setModalGaleryVisible(!this.state.modalVisibleGalery);
-                }}>
-                <Image
-                  style={styles.closeIcon}
-                  source={require('../Icons/close.png')}
+          <Modal
+              animationType="slide"
+              transparent={true}
+              visible={this.state.modalVisibleGalery}
+              position={'center'}
+              onRequestClose={() => {
+                this.setModalGaleryVisible(!this.state.modalVisibleGalery);
+              }}>
+            <View
+                style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.ModalInsideView}>
+                <TouchableOpacity
+                    style={styles.touchableCloseIcon}
+                    onPress={() => {
+                      this.setModalGaleryVisible(!this.state.modalVisibleGalery);
+                    }}>
+                  <Image
+                      style={styles.closeIcon}
+                      source={require('../Icons/close.png')}
+                  />
+                </TouchableOpacity>
+                <ModalCropPicGalleryBody
+                    connectedDevice={this.props.connectedDevice}
                 />
-              </TouchableOpacity>
-              <ModalCropPicGalleryBody
-                connectedDevice={this.props.connectedDevice}
-              />
+              </View>
             </View>
-          </View>
-        </Modal>
+          </Modal>
 
-        <View style={styles.MainContainer}>
-          <TouchableOpacity
-            onPress={() => {
-              this.setModalTextVisible(true);
-            }}>
-            <View style={styles.imgContenainer}>
-              <Image
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: 70,
-                  width: 79,
-                }}
-                source={require('../Icons/keyboard-solid-79x70.png')}
-              />
-              <Text style={{textAlign: 'center'}}>Message</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              this.setModalDrawVisible(true);
-            }}>
-            <View style={styles.imgContenainer}>
-              <Image
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: 70,
-                  width: 88,
-                }}
-                source={require('../Icons/dragon-solid-88x70.png')}
-              />
-              <Text style={{textAlign: 'center'}}>Dessin</Text>
-            </View>
-          </TouchableOpacity>
+          <View style={styles.MainContainer}>
+            <TouchableOpacity
+                onPress={() => {
+                  this.setModalTextVisible(true);
+                }}>
+              <View style={styles.imgContenainer}>
+                <Image
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      height: 70,
+                      width: 79,
+                    }}
+                    source={require('../Icons/keyboard-solid-79x70.png')}
+                />
+                <Text style={{textAlign: 'center'}}>Message</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => {
+                  this.setModalDrawVisible(true);
+                }}>
+              <View style={styles.imgContenainer}>
+                <Image
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      height: 70,
+                      width: 88,
+                    }}
+                    source={require('../Icons/dragon-solid-88x70.png')}
+                />
+                <Text style={{textAlign: 'center'}}>Dessin</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.MainContainer}>
+            <TouchableOpacity
+                onPress={() => {
+                  this.setModalLibraryVisible(true);
+                }}>
+              <View style={styles.imgContenainer}>
+                <Image
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      height: 70,
+                      width: 70,
+                    }}
+                    source={require('../Icons/image-solid-70x70.png')}
+                />
+                <Text style={{textAlign: 'center'}}>Bibliothèque</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => {
+                  this.setModalGaleryVisible(true);
+                }}>
+              <View style={styles.imgContenainer}>
+                <Image
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      height: 70,
+                      width: 79,
+                    }}
+                    source={require('../Icons/images-solid-79x70.png')}
+                />
+                <Text style={{textAlign: 'center'}}>Galerie</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.MainContainer}>
-          <TouchableOpacity
-            onPress={() => {
-              this.setModalLibraryVisible(true);
-            }}>
-            <View style={styles.imgContenainer}>
-              <Image
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: 70,
-                  width: 70,
-                }}
-                source={require('../Icons/image-solid-70x70.png')}
-              />
-              <Text style={{textAlign: 'center'}}>Bibliothèque</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              this.setModalGaleryVisible(true);
-            }}>
-            <View style={styles.imgContenainer}>
-              <Image
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: 70,
-                  width: 79,
-                }}
-                source={require('../Icons/images-solid-79x70.png')}
-              />
-              <Text style={{textAlign: 'center'}}>Galerie</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
     );
   }
 }

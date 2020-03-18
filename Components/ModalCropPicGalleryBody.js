@@ -58,7 +58,7 @@ class ModalCropPicGalleryBody extends Component {
   submit = image => {
     if (image != '') {
       image = image.substring(8);
-      console.log(image);
+      //console.log(image);
       NativeModules.Bitmap.getPixels(image)
         .then(image => {
           console.log('Width : ' + image.width);
@@ -66,9 +66,9 @@ class ModalCropPicGalleryBody extends Component {
 
           var pixtosend = [];
 
-          for (let x = 0; x < image.width; x++) {
-            for (let y = 0; y < image.height; y++) {
-              const offset = image.width * y + x;
+          for (let ligne = 0; ligne < image.height; ligne++) {
+            for (let colonne = 0; colonne < image.width; colonne++) {
+              const offset = image.width * ligne + colonne;
               const pixel = image.pixels[offset];
               const r = pixel.substring(2, 4);
               const g = pixel.substring(4, 6);
@@ -79,22 +79,45 @@ class ModalCropPicGalleryBody extends Component {
             }
           }
 
-          alert(pixtosend);
+          var message = '';
+          for (const d of pixtosend) {
+            message += String.fromCharCode(d);
+          }
+          console.log(pixtosend);
+          console.log(message);
+
+          if (this.props.connectedDevice != '') {
+            BluetoothSerial.write('x' + message + '$')
+              .then(res => {
+                //Toast.show("L'envoie s'est déroulé avec succès");
+                //console.log(res);
+              })
+              .catch(err => Toast.show(err.message));
+
+            for (const data of pixtosend) {
+              BluetoothSerial.write(data)
+                .then(res => {
+                  //Toast.show("L'envoie s'est déroulé avec succès");
+                  //console.log(res);
+                })
+                .catch(err => Toast.show(err.message));
+            }
+
+            BluetoothSerial.write('$')
+              .then(res => {
+                //Toast.show("L'envoie s'est déroulé avec succès");
+                //console.log(res);
+              })
+              .catch(err => Toast.show(err.message));
+          } else {
+            Toast.show(
+              "L'envoie a échoué. Veuillez vous connecter à un appareil",
+            );
+          }
         })
         .catch(err => {
           console.error(err);
         });
-      if (this.props.connectedDevice != '') {
-        BluetoothSerial.write('x image : ' + image + '$')
-          .then(res => {
-            Toast.show("L'envoie s'est déroulé avec succès");
-            console.log(res);
-          })
-          .catch(err => Toast.show(err.message));
-      } else {
-        Toast.show("L'envoie a échoué. Veuillez vous connecter à un appareil");
-      }
-      console.log(image);
     }
   };
 

@@ -460,18 +460,21 @@ class App extends Component {
               <View style={styles.sectionContainer}>
                 <Text style={styles.sectionTitle}>
                   Bienvenue sur{' '}
-                  <Text style={styles.highlight}>Draw In The Air</Text>
+                  <Text style={styles.highlight}>Air Drawing</Text>
                 </Text>
                 <Text style={styles.sectionDescription}>
-                  L'application dédiéé à notre support de persistance rétinienne
-                  au top.
+                  L'application dédiée à notre support de persistance
+                  rétinienne.
                 </Text>
               </View>
               <View style={styles.sectionContainer}>
                 <FeaturesMenu connectedDevice={this.state.device} />
               </View>
-              <View style={styles.sectionContainer}>
-                <Image style={{'maxWidth':'100%'}} source={require('./Icons/grouppic.png')} />
+              <View style={styles.sectionContainerRow}>
+                <Image
+                  style={{maxWidth: '100%'}}
+                  source={require('./Icons/grouppic.png')}
+                />
               </View>
             </View>
           </ScrollView>
@@ -496,6 +499,12 @@ const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
+  },
+  sectionContainerRow: {
+    marginTop: 32,
+    paddingHorizontal: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   sectionTitle: {
     fontSize: 24,
